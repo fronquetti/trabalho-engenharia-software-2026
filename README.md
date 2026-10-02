@@ -3,7 +3,7 @@ Trabalho de clínica veterinária do Técnico em Informática, segundo semestre 
 
  LINK DO PROJETO DO FIGMA https://www.figma.com/design/KTFpXc7RjeLND2oYifGWly/Sem-t%C3%ADtulo?node-id=0-1&t=J9ZEJ6OM7xFqknCa-1
 
-## DIAGRAMA UML 
+## DIAGRAMAS UML 
 
 ```mermaid
 flowchart TD
