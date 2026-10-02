@@ -5,6 +5,8 @@ Trabalho de clínica veterinária do Técnico em Informática, segundo semestre 
 
 ## DIAGRAMAS UML 
 
+### Diagrama de caso de uso
+
 ```mermaid
 flowchart TD
   %% atores
@@ -22,4 +24,42 @@ cliente -- "faz pedido" --- comida
 garçom -- "recebe pedido" --- comida
 
 vinho -. "estende" .-> comida
+```
+
+
+### Diagrama de classe
+```mermaid
+classDiagram
+    class Veterinario{
+        %% atributos: características que serão
+        %% armazenamento no sitema
+     -CPF: string
+     %% métodos : ações que serão desempenhadas
+     %% por essa entidade no sistema
+     +darCPF() string
+     +atenderAnimal(animal: Animal)void
+    }
+    Veterinario -- Animal
+    Animal -- Cliente
+   
+class Animal{
+    -dono:Cliente
+    -Nome : string
+    -sexo : string
+    -doença: string
+    -especie: string
+    +Nome() string
+    +sexo()string
+    +doença()string
+    +Especie() string
+}
+class Cliente{
+-animais: Animal[]
+-Nome: string
+-contato:string
+-CPF: string
++InformeNome(): string
++informeContato(): string
++InformeCPF(): string
+}
 ```
