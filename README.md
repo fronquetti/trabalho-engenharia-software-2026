@@ -9,57 +9,66 @@ Trabalho de clínica veterinária do Técnico em Informática, segundo semestre 
 
 ```mermaid
 flowchart TD
-  %% atores
-  cliente["cliente"]
-  garçom["garçom"]
+ veterinario["veterinário"]
+tutor["tutor"]
 
-%%ações
+%% ações
 subgraph sistema
-   comida["pedir comida"]
-   vinho["pedir vinho"]
+   cadastrarTutor["cadastrar dados do tutor"]
+   cadastrarAnimal["cadastrar dados e sintomas do animal"]
+   agendarConsulta["agendar consulta"]
+   consultarAnimal["consultar animal"]
 end
 
 %% relacionamentos
-cliente -- "faz pedido" --- comida
-garçom -- "recebe pedido" --- comida
+veterinario -- "preenche" --- cadastrarTutor
+tutor -- "informa dados" --- cadastrarTutor
 
-vinho -. "estende" .-> comida
+veterinario -- "preenche" --- cadastrarAnimal
+tutor -- "informa dados" --- cadastrarAnimal
+
+veterinario -- "realiza" --- agendarConsulta
+veterinario -- "consulta" --- consultarAnimal
+
+cadastrarTutor -. "possui" .-> cadastrarAnimal
+agendarConsulta -. "é referente ao" .-> cadastrarAnimal
+consultarAnimal -. "após" .-> agendarConsulta
 ```
 
 
 ### Diagrama de classe
 ```mermaid
 classDiagram
-    class Veterinario{
-        %% atributos: características que serão
-        %% armazenamento no sitema
-     -CPF: string
-     %% métodos : ações que serão desempenhadas
-     %% por essa entidade no sistema
-     +darCPF() string
-     +atenderAnimal(animal: Animal)void
-    }
-    Veterinario -- Animal
-    Animal -- Cliente
-   
-class Animal{
-    -dono:Cliente
-    -Nome : string
-    -sexo : string
-    -doença: string
-    -especie: string
-    +Nome() string
-    +sexo()string
-    +doença()string
-    +Especie() string
+  class Veterinario {
+   +preencherDados()
+   +agendarConsulta()
+   +atenderAnimal(animal: Animal)void
 }
-class Cliente{
--animais: Animal[]
--Nome: string
--contato:string
--CPF: string
-+InformeNome(): string
-+informeContato(): string
-+InformeCPF(): string
+
+class Tutor {
+    -animais: Animal[]
+   -nome : String
+   -telefone : String
+   -cpf : String
 }
+
+class Animal {
+    -dono: Cliente
+   -nome : String
+   -especie : String
+   -sexo : String
+   -sintomas : String
+   -vacinacaoEmDia : boolean
+}
+
+class Consulta {
+   -data : String
+   -horario : String
+   -procedimento : String
+}
+
+Veterinario --> Tutor : cadastra
+Veterinario --> Animal : cadastra
+Veterinario --> Consulta : agenda
+Tutor --> Animal : informa dados
 ```
