@@ -39,36 +39,47 @@ consultarAnimal -. "após" .-> agendarConsulta
 ### Diagrama de classe
 ```mermaid
 classDiagram
-  class Veterinario {
-   +preencherDados()
-   +agendarConsulta()
-   +atenderAnimal(animal: Animal)void
-}
 
-class Tutor {
-    -animais: Animal[]
-   -nome : String
-   -telefone : String
-   -cpf : String
-}
+    class Veterinario {
+       +preencherDados()
+       +agendarConsulta()
+       +atenderAnimal(animal: Animal)void
+    }
 
-class Animal {
-    -dono: Cliente
-   -nome : String
-   -especie : String
-   -sexo : String
-   -sintomas : String
-   -vacinacaoEmDia : boolean
-}
+    class Tutor {
+        -animais: Animal[]
+        -nome : String
+        -telefone : String
+        -cpf : String
+        +cadastrarDados() void
+     
+    }
 
-class Consulta {
-   -data : String
-   -horario : String
-   -procedimento : String
-}
+    class Animal {
+       -dono: Cliente
+       -nome : String
+       -especie:String
+       -raca: String
+       -sexo : String       
+       -cor: String
+       -peso: Double
+       -String : Sintomas
+       -vacinacaoEmDia : boolean
+       +cadastrarAnimal() void
+       +consultarAnimal() void
+    }
 
-Veterinario --> Tutor : cadastra
-Veterinario --> Animal : cadastra
-Veterinario --> Consulta : agenda
-Tutor --> Animal : informa dados
+    class Agendamento {
+        -data : String
+        -Horário: String
+        -procedimento : String
+        +agendarAtendimento() void
+        +enviarAgendamento() void
+    }
+
+    Veterinario --> Tutor : cadastra dados
+    Veterinario --> Animal : cadastra dados
+    Veterinario --> Agendamento : agenda consulta
+    Tutor "1" --> "0..*" Animal : possui
+    Animal --> Agendamento : recebe
 ```
